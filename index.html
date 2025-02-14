@@ -190,34 +190,35 @@
     const imageContainer = document.querySelector('.image-container');
     const messageBox = document.querySelector('.message-box');
     const cuteMessage = document.querySelector('.cute-message');
-
+  
     const images = [
-            '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', 
-            '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg','11.jpg', '12.jpg', '13.jpg'
-        ];
-
+      '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', 
+      '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', 
+      '11.jpg', '12.jpg', '13.jpg'
+    ];
+  
     const messages = [
       "Your smile lights up my world! 😊",
       "Your kindness makes life beautiful! 💖",
       "Every moment with you is magical! ✨",
       "You have the most beautiful smile! 😊",
-          "Your kindness makes my world brighter! 💖",
-          "Every moment with you is magical! ✨",
-          "I love how you always support me! 🤗",
-          "You're my favorite person in the universe! 🌍💞",
-          "You make even the ordinary feel special! 🎆",
-          "Your laugh is my favorite sound! 😆💕",
-          "You're the most caring person I know! 🥰",
-          "I love you more than words can express! 😘",
-          "Forever isn’t long enough with you! 💑"
+      "Your kindness makes my world brighter! 💖",
+      "Every moment with you is magical! ✨",
+      "I love how you always support me! 🤗",
+      "You're my favorite person in the universe! 🌍💞",
+      "You make even the ordinary feel special! 🎆",
+      "Your laugh is my favorite sound! 😆💕",
+      "You're the most caring person I know! 🥰",
+      "I love you more than words can express! 😘",
+      "Forever isn’t long enough with you! 💑"
     ];
-
+  
     noBtn.addEventListener('mouseover', () => { 
       const x = Math.random() * 300 - 150;
       const y = Math.random() * 300 - 150;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
-
+  
     yesBtn.addEventListener('click', () => {
       document.querySelector('.message').style.display = 'none';
       yesBtn.style.display = 'none';
@@ -226,32 +227,45 @@
       finalMessage.style.display = 'block';
       reasonsBtn.style.display = 'block';
     });
-
+  
     reasonsBtn.addEventListener('click', () => {
-      reasonsBtn.style.display = 'none';
-      imageContainer.style.display = 'block';
-      messageBox.style.display = 'block';
-
-      let index = 0;
-
-      function showNextImage() {
-        if (index < images.length) {
-          imageContainer.innerHTML = `<img src="${images[index]}" class="flip-img show">`;
-          messageBox.innerHTML = messages[index];
-          messageBox.classList.add('show');
-          index++;
-          setTimeout(showNextImage, 3000);
-        } else {
-          imageContainer.style.display = 'none';
-          messageBox.style.display = 'none';
-          cuteMessage.style.display = 'block';
-          createFallingHearts();
+      // Fade out heart and final message
+      heart.style.transition = "opacity 1s ease-out";
+      finalMessage.style.transition = "opacity 1s ease-out";
+      heart.style.opacity = "0";
+      finalMessage.style.opacity = "0";
+  
+      setTimeout(() => {
+        heart.style.display = "none";
+        finalMessage.style.display = "none";
+  
+        // Show images and messages
+        reasonsBtn.style.display = 'none';
+        imageContainer.style.display = 'block';
+        messageBox.style.display = 'block';
+  
+        let index = 0;
+  
+        function showNextImage() {
+          if (index < images.length) {
+            imageContainer.innerHTML = `<img src="${images[index]}" class="flip-img show">`;
+            messageBox.innerHTML = messages[index];
+            messageBox.classList.add('show');
+            index++;
+            setTimeout(showNextImage, 3000);
+          } else {
+            // After all images, show final cute message
+            imageContainer.style.display = 'none';
+            messageBox.style.display = 'none';
+            cuteMessage.style.display = 'block';
+            createFallingHearts();
+          }
         }
-      }
-
-      showNextImage();
+  
+        showNextImage();
+      }, 1000); // Delay to allow fade-out effect
     });
-
+  
     function createFallingHearts() {
       for (let i = 0; i < 30; i++) {
         let heart = document.createElement('div');
@@ -263,5 +277,6 @@
       }
     }
   </script>
+  
 </body>
 </html>
